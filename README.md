@@ -85,7 +85,7 @@ bootstrap();
 ```bash
 $ yarn add next react react-dom
 $ yarn add -D @types/react-dom @types/react
-$ mkdir src/client
+$ mkdir -p src/client/pages
 ```
 
 2. add to `tsconfig.json`
@@ -118,3 +118,5 @@ $ mkdir src/client
 ```ts
 import { Compiler, WebpackPluginInstance as Plugin } from 'webpack';
 ```
+
+7. create pages in `src/client/pages` folder
