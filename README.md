@@ -8,7 +8,7 @@
 
 1.
 
-```bash
+```sh
 $ nvm use || nvm install
 $ yarn
 ```
@@ -21,7 +21,7 @@ import { Compiler, WebpackPluginInstance as Plugin } from 'webpack';
 
 ## Running the app
 
-```bash
+```sh
 # development
 $ yarn start
 
@@ -34,7 +34,7 @@ $ yarn start:prod
 
 ## Test
 
-```bash
+```sh
 # unit tests
 $ yarn test
 
@@ -49,7 +49,7 @@ $ yarn test:cov
 
 1.
 
-```bash
+```sh
 $ nvm use node
 ```
 
@@ -57,7 +57,7 @@ $ nvm use node
 
 1.
 
-```bash
+```sh
 $ npm i -g @nestjs/cli
 $ nest new myapp
 $ cd myapp
@@ -90,7 +90,7 @@ bootstrap();
 
 1.
 
-```bash
+```sh
 $ yarn add next react react-dom
 $ yarn add -D @types/react-dom @types/react
 $ mkdir -p src/client/pages
@@ -142,7 +142,7 @@ import { Compiler, WebpackPluginInstance as Plugin } from 'webpack';
 
 1.
 
-```bash
+```sh
 $ yarn add -D eslint-plugin-react eslint-import-resolver-typescript eslint-config-airbnb eslint-plugin-jsx-a11y eslint-plugin-import eslint-plugin-react-hooks
 ```
 
@@ -246,7 +246,7 @@ module.exports = {
 
 1.
 
-```bash
+```sh
 $ yarn remove ts-jest
 $ yarn add -D @next/env @babel/core babel-jest
 ```
@@ -295,7 +295,7 @@ module.exports = {
 
 5. create symbolic link of `babel.config.js` to `src/client/babel.config.js`
 
-```bash
+```sh
 $ ln -sf "$(pwd)/babel.config.js" "$(pwd)/src/client"
 ```
 
@@ -313,7 +313,7 @@ loadEnvConfig(join(__dirname, '../src/client'));
 
 1.
 
-```bash
+```sh
 $ yarn add @emotion/react
 $ yarn add -D @emotion/babel-plugin @emotion/eslint-plugin @emotion/jest
 ```
@@ -377,8 +377,11 @@ expect.extend(matchers);
 
 ### [Redux-Toolkit](https://redux-toolkit.js.org/)
 
-1. ```sh
-   yarn add react-redux @reduxjs/toolkit next-redux-wrapper
-   yarn add -D @types/react-redux @types/webpack-env
-   ```
+1.
+
+```sh
+$ yarn add react-redux @reduxjs/toolkit next-redux-wrapper
+$ yarn add -D @types/react-redux @types/webpack-env
+```
+
 2. create custom `rootReducer`, `makeStore`, `wrapper` similar to ones in files `src/features/redux/reducers.tsx` and `src/features/redux/store.tsx` and apply them in `src/pages/_app.tsx`
