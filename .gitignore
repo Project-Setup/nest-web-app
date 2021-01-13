@@ -35,3 +35,5 @@ lerna-debug.log*
 
 # NextJs
 src/client/.next
+src/client/public/build/*
+.env*.local
