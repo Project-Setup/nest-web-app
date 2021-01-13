@@ -24,6 +24,10 @@ const Index: NextPage<Record<string, string>> = ({ ...appProps }) => (
       <Link href="/1">
         <a>1</a>
       </Link>
+      <br />
+      <Link href="/count">
+        <a>count</a>
+      </Link>
     </div>
   </main>
 );

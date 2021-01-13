@@ -374,3 +374,11 @@ expect.extend(matchers);
   }
 }
 ```
+
+### [Redux-Toolkit](https://redux-toolkit.js.org/)
+
+1. ```sh
+   yarn add react-redux @reduxjs/toolkit next-redux-wrapper
+   yarn add -D @types/react-redux @types/webpack-env
+   ```
+2. create custom `rootReducer`, `makeStore`, `wrapper` similar to ones in files `src/features/redux/reducers.tsx` and `src/features/redux/store.tsx` and apply them in `src/pages/_app.tsx`

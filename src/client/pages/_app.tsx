@@ -3,6 +3,8 @@ import { AppContext, AppProps } from 'next/app';
 import { css, Global } from '@emotion/react';
 import { IsJsonable } from '~shared/types/types';
 import { globalButtonReset } from '~client/features/styles/buttonReset';
+import { setPathAndQuery } from '~client/features/server/serverSlice';
+import { wrapper } from '~client/features/redux/store';
 
 const globalBodyStyles = css`
   body {
@@ -31,8 +33,21 @@ const myApp: NextComponentType<
   </>
 );
 
-myApp.getInitialProps = async () => ({
-  appProps: { appInitialProcessEnv: process.env.APP_PROP },
-});
+myApp.getInitialProps = async ({ Component, ctx }) => {
+  ctx.store.dispatch(
+    setPathAndQuery({
+      pathName: ctx.pathname,
+      query: ctx.query,
+    })
+  );
+  return {
+    pageProps: {
+      ...(Component.getInitialProps
+        ? await Component.getInitialProps(ctx)
+        : {}),
+    },
+    appProps: { appInitialProcessEnv: process.env.APP_PROP },
+  };
+};
 
-export default myApp;
+export default wrapper.withRedux(myApp);
