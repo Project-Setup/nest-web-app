@@ -7,6 +7,6 @@
       "~shared/*": ["shared/*"]
     },
   },
-  "include": ["src/**/*.ts"],
-  "exclude": [".next"]
+  "include": ["src/**/*", "test/**/*"],
+  "exclude": ["src/client/.next"]
 }

@@ -129,6 +129,15 @@ import { Compiler, WebpackPluginInstance as Plugin } from 'webpack';
 
 7. create pages in `src/client/pages` folder
 
+8. modify `tsconfig.json`
+
+```json
+{
+  "include": ["src/**/*", "test/**/*"],
+  "exclude": ["src/client/.next"]
+}
+```
+
 ### [Eslint and Prettier](https://dev.to/robertcoopercode/using-eslint-and-prettier-in-a-typescript-project-53jb)
 
 1.
@@ -238,7 +247,8 @@ module.exports = {
 1.
 
 ```bash
-$ yarn add -D @next/env
+$ yarn remove ts-jest
+$ yarn add -D @next/env @babel/core babel-jest
 ```
 
 2. modify `jest` config in `package.json`
@@ -247,10 +257,12 @@ $ yarn add -D @next/env
 {
   "jest": {
     "moduleFileExtensions": ["js", "json", "ts", "tsx", "jsx"],
-    "rootDir": "src",
-    "testRegex": ".*\\.spec\\.ts$",
+    "globals": {
+      "NODE_ENV": "test"
+    },
+    "testRegex": ".*\\.spec\\.(t|j)sx?$",
     "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
+      "^.+\\.(t|j)sx?$": "babel-jest"
     },
     "collectCoverageFrom": ["**/*.(t|j)sx?"],
     "coverageDirectory": "../coverage",
@@ -262,8 +274,9 @@ $ yarn add -D @next/env
     ],
     "testEnvironment": "node",
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/mocks.js",
-      "\\.(css|less|scss)$": "<rootDir>/__mocks__/mocks.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/__mocks__/mocks.js",
+      "\\.(css|less|scss)$": "<rootDir>/test/__mocks__/mocks.js",
+      "^~(.*)$": "<rootDir>/src/$1"
     },
     "snapshotSerializers": ["@emotion/jest/serializer"],
     "setupFiles": ["<rootDir>/test/jest.setup.js"],
@@ -272,7 +285,7 @@ $ yarn add -D @next/env
 }
 ```
 
-4. create `src/client/babel.config.js`
+4. create `babel.config.js`
 
 ```js
 module.exports = {
@@ -280,7 +293,13 @@ module.exports = {
 };
 ```
 
-5. create `test/jest.setup.js`
+5. create symbolic link of `babel.config.js` to `src/client/babel.config.js`
+
+```bash
+$ ln -sf "$(pwd)/babel.config.js" "$(pwd)/src/client"
+```
+
+6. create `test/jest.setup.js`
 
 ```js
 import { join } from 'path';
@@ -299,7 +318,7 @@ $ yarn add @emotion/react
 $ yarn add -D @emotion/babel-plugin @emotion/eslint-plugin @emotion/jest
 ```
 
-2. change `src/client/babel.config.js`
+2. change `babel.config.js`
 
 ```js
 module.exports = {
