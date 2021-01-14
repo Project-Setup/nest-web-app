@@ -19,6 +19,14 @@ $ yarn
 import { Compiler, WebpackPluginInstance as Plugin } from 'webpack';
 ```
 
+3. create MySQL database and account with root (`sudo mysql`)
+
+```sql
+CREATE DATABASE example;
+ALTER USER 'user'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+GRANT ALL ON example.* TO 'user'@'localhost';
+```
+
 ## Running the app
 
 ```sh
@@ -85,6 +93,13 @@ async function bootstrap() {
 }
 bootstrap();
 ```
+
+4. change `nest-cli.json`
+   {
+   "collection": "@nestjs/schematics",
+   "sourceRoot": "src/server",
+   "entryFile": "server/main"
+   }
 
 ### [NextJs](https://medium.com/javascript-in-plain-english/render-next-js-with-nestjs-did-i-just-made-next-js-better-aa294d8d2c67)
 
@@ -385,3 +400,55 @@ $ yarn add -D @types/react-redux @types/webpack-env
 ```
 
 2. create custom `rootReducer`, `makeStore`, `wrapper` similar to ones in files `src/features/redux/reducers.tsx` and `src/features/redux/store.tsx` and apply them in `src/pages/_app.tsx`
+
+### [TypeORM](https://docs.nestjs.com/techniques/database)
+
+1.
+
+```sh
+$ yarn add @nestjs/config @nestjs/typeorm typeorm mysql
+# or other database driver
+```
+
+2. create MySQL database and account with root (`sudo mysql`)
+
+```sql
+CREATE DATABASE example;
+ALTER USER 'user'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+GRANT ALL ON example.* TO 'user'@'localhost';
+```
+
+3. create `.env.mysql.local` with mysql database config environment variables
+
+4. add typeorm module to `imports` in `src/server/app.module.ts`
+
+```ts
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+@Module({
+  imports: [
+    TypeOrmModule.forRootAsync({
+      imports: [
+        ConfigModule.forRoot({
+          envFilePath: '.env.mysql.local',
+        }),
+      ],
+      useFactory: (configService: ConfigService) => ({
+        type: 'mysql',
+        host: configService.get('MYSQL_HOST') || 'localhost',
+        port: configService.get<number>('MYSQL_PORT') || 3306,
+        username: configService.get('MYSQL_USERNAME'),
+        password: configService.get('MYSQL_PASSWORD'),
+        database: configService.get('MYSQL_DATABASE'),
+        entities: [`${__dirname}/**/*.entity.{ts,js}`],
+        synchronize: true,
+      }),
+      inject: [ConfigService],
+    }),
+  ]
+}
+```
+
+5. add entities, services, and modules similar to `src/server/modules/user`
