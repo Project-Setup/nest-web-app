@@ -3,7 +3,7 @@ import {} from '@nestjs/platform-fastify';
 import { ViewService } from './view.service';
 import { FastifyRequest, FastifyReply } from 'fastify';
 
-@Controller('/')
+@Controller()
 export class ViewController {
   constructor(private viewService: ViewService) {}
 
