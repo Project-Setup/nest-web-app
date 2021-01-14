@@ -27,6 +27,16 @@ ALTER USER 'user'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password
 GRANT ALL ON example.* TO 'user'@'localhost';
 ```
 
+4. create `.env.mysql.local` with mysql database config environment variables
+
+```sh
+MYSQL_HOST=localhost
+MYSQL_PORT=3306
+MYSQL_USERNAME=user
+MYSQL_PASSWORD=password
+MYSQL_DATABASE=example
+```
+
 ## Running the app
 
 ```sh
@@ -419,6 +429,14 @@ GRANT ALL ON example.* TO 'user'@'localhost';
 ```
 
 3. create `.env.mysql.local` with mysql database config environment variables
+
+```sh
+MYSQL_HOST=localhost
+MYSQL_PORT=3306
+MYSQL_USERNAME=user
+MYSQL_PASSWORD=password
+MYSQL_DATABASE=example
+```
 
 4. add typeorm module to `imports` in `src/server/app.module.ts`
 
