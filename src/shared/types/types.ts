@@ -28,3 +28,5 @@ export type IsJsonable<T = Record<string | number, primitive>> =
         never
     : // Otherwise non-jsonable type union was found not empty
       never;
+
+export type Folders = string[];

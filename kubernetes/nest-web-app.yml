@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nest-web-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nest-web-app
+  template:
+    metadata:
+      labels:
+        app: nest-web-app
+    spec:
+      containers:
+        - name: nest-web-app
+          image: clfhhc/nest-web-app:dev # change the image name here
+          envFrom:
+          - configMapRef:
+              name: houser-env
+          env:
+          - name: MYSQL_HOST
+            value: mysql
+          - name: MYSQL_PORT
+            value: "3306"
+          - name: NESTJS_PORT
+            value: "4000"
+          ports:
+            - containerPort: 4000
+          command: ["yarn", "start"]
+          imagePullPolicy: Always
+          volumeMounts:
+          - name: houser-secrets
+            mountPath: "/usr/src/app/secrets"
+      imagePullSecrets:
+        - name: regcred # secret that K8s uses to access image
+      volumes:
+      - name: houser-secrets
+        secret:
+          secretName: houser-secrets
+          defaultMode: 0600
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nest-web-app
+spec:
+  selector:
+    app: nest-web-app
+  ports:
+    - port: 4000 # expose the service on internal port 4000
+      targetPort: 4000 # our NodeJS app listens on port 4000

@@ -13,13 +13,7 @@ $ nvm use || nvm install
 $ yarn
 ```
 
-2. change the import line in `node_modules/next/dist/build/webpack/plugins/pages-manifest-plugin.d.ts`
-
-```ts
-import { Compiler, WebpackPluginInstance as Plugin } from 'webpack';
-```
-
-3. create MySQL database and account with root (`sudo mysql`)
+2. create MySQL database and account with root (`sudo mysql`)
 
 ```sql
 CREATE DATABASE example;
@@ -27,7 +21,7 @@ ALTER USER 'user'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password
 GRANT ALL ON example.* TO 'user'@'localhost';
 ```
 
-4. create `.env.mysql.local` with mysql database config environment variables
+3. create `.env.mysql.local` with mysql database config environment variables
 
 ```sh
 MYSQL_HOST=localhost
@@ -146,15 +140,9 @@ $ mkdir -p src/client/pages
 }
 ```
 
-6. change the import line in `node_modules/next/dist/build/webpack/plugins/pages-manifest-plugin.d.ts` every time after npm package installation/removal
+6. create pages in `src/client/pages` folder
 
-```ts
-import { Compiler, WebpackPluginInstance as Plugin } from 'webpack';
-```
-
-7. create pages in `src/client/pages` folder
-
-8. modify `tsconfig.json`
+7. modify `tsconfig.json`
 
 ```json
 {

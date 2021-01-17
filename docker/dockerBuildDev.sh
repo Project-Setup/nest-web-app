@@ -1,0 +1,1 @@
+docker build -t clfhhc/nest-web-app:dev -f docker/Dockerfile --target dev .

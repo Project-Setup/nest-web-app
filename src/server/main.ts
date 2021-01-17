@@ -8,8 +8,9 @@ import {
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
-    new FastifyAdapter()
+    new FastifyAdapter(),
+    { logger: ['error', 'warn', 'log', 'debug', 'verbose'] }
   );
-  await app.listen(3000);
+  await app.listen(process.env.NESTJS_PORT || 3000);
 }
 bootstrap();

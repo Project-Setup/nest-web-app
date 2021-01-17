@@ -37,3 +37,6 @@ lerna-debug.log*
 src/client/.next
 src/client/public/build/*
 .env*.local
+
+# secrets
+secrets
