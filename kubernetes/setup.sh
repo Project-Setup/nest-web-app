@@ -32,6 +32,7 @@ export NAMESPACE=houser-development
 # create persistent volume
 # comment this after the first setup
 # kubectl create -f kubernetes/mysql-pv.yml -n=$NAMESPACE
+
 # deploy and expose mysql
 # kubectl apply -f kubernetes/mysql.yml -n=$NAMESPACE
 

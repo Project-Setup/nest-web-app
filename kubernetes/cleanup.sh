@@ -7,9 +7,11 @@ export NAMESPACE=houser-development
 kubectl delete secrets regcred -n=$NAMESPACE
 kubectl delete secrets houser-secrets -n=$NAMESPACE
 
-
 # delete configmaps
 kubectl delete configmap houser-env -n=$NAMESPACE
+
+# delete ingress in prod
+kubectl delete ingress ingress-nest -n=$NAMESPACE
 
 # delete service and deployment of nest-web-app
 # kubectl delete service nest-web-app -n=$NAMESPACE
