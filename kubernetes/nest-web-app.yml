@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: nest-web-app
-          image: clfhhc/nest-web-app:dev # change the image name here
+          image: DOCKER_IMAGE_TAG # change the image name here
           envFrom:
           - configMapRef:
               name: houser-env
