@@ -27,7 +27,7 @@ import loadEnvByKey from '~server/modules/config/loadEnv';
         password: configService.get('MYSQL_PASSWORD'),
         database: configService.get('MYSQL_DATABASE'),
         entities: [`${__dirname}/**/*.entity.{ts,js}`],
-        synchronize: true,
+        synchronize: !(process.env.NODE_ENV === 'production'),
       }),
       inject: [ConfigService],
     }),

@@ -13,7 +13,7 @@ $ nvm use || nvm install
 $ yarn
 ```
 
-2. create MySQL database and account with root (`sudo mysql`)
+2. create MySQL database and account with root (`sudo mysql`) (change the username and password in the following steps)
 
 ```sql
 CREATE DATABASE example;
@@ -21,25 +21,29 @@ ALTER USER 'user'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password
 GRANT ALL ON example.* TO 'user'@'localhost';
 ```
 
-3. create `.env.mysql.local` with mysql database config environment variables
+3. create `secrets/` and add database config key/value pairs, using `key` as filename and `value` as content
 
 ```sh
-MYSQL_HOST=localhost
-MYSQL_PORT=3306
-MYSQL_USERNAME=user
-MYSQL_PASSWORD=password
-MYSQL_DATABASE=example
+mkdir -p ./secrets
+echo "password" > secrets/MYSQL_PASSWORD
+echo "root_password" > secrets/MYSQL_ROOT_PASSWORD
+echo "user" > secrets/MYSQL_USER
+chmod 600 secrets/*
 ```
+
+4. run the server
+
+```sh
+yarn start
+```
+
+## Local Deployment
+
+1. follow `kubernetes/readme.md`
 
 ## Running the app
 
 ```sh
-# development
-$ yarn start
-
-# watch mode
-$ yarn start:dev
-
 # production mode
 $ yarn start:prod
 ```
